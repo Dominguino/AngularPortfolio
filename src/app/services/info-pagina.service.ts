@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { InfoPagina } from '../interfaces/info-pagina.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InfoPaginaService {
 
-  info: any = {}; 
+  info: InfoPagina = {}; 
   cargada = false; 
 
   constructor( private http: HttpClient) { 
@@ -14,7 +15,7 @@ export class InfoPaginaService {
 
     //leer el archivo JSON
     this.http.get('assets/data/data-pagina.json')
-      .subscribe((resp: any) => {
+      .subscribe((resp: InfoPagina) => {
         console.log(resp); 
         //console.log(resp ['twitter']); 
         //console.log(resp.twitter); //forma alternativa a la de encima
