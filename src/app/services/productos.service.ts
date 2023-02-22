@@ -1,31 +1,37 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ProductoInterface } from '../interfaces/producto.interface'; 
+import { Producto } from '../interfaces/producto.interface'; 
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductosService {
 
-  cargando = true; 
+  cargando = true;
+  productos: Producto[] = [];
 
-  constructor( private http: HttpClient) { 
 
-    this.cargarProductos(); 
+  constructor( private http: HttpClient ) {
+
+    this.cargarProductos();
+
   }
 
-  private cargarProductos(){
+
+  private cargarProductos() {
+
     this.http.get('https://angular-html-430fb-default-rtdb.europe-west1.firebasedatabase.app/productos_idx.json')
-    .subscribe( (resp: any) => {
-      console.log(resp); 
+        .subscribe( (resp: any) => {
 
+          console.log(resp);
+          this.productos = resp;
+          
+         this.cargando = false;
 
-      this.cargando= false; 
-    });
+        });
 
 
   }
-
-
 
 }
